@@ -36,6 +36,9 @@ module.exports = {
   outputDir: 'dist2',
   configureWebpack: {
     plugins: [
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1
+      }),
       new webpack.NormalModuleReplacementPlugin(/.*/, resource => {
         const request = String(resource.request || '').replace(/\\/g, '/')
         const hit = replacements.find(([from]) => request === from || request.endsWith('/' + from))
