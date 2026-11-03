@@ -1,0 +1,72 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pet_adoption?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+
+  # 邮箱配置（QQ邮箱示例，需替换为自己的授权码）
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: ${MAIL_USERNAME:your_email@qq.com}
+    password: ${MAIL_PASSWORD:your_authorization_code}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
+# MyBatis-Plus
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.pet.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000  # 24小时（毫秒）
+  header: Authorization
+
+# 文件上传路径
+upload:
+  path: ${UPLOAD_PATH:D:/pet-upload/}   # Windows本地文件存储路径，按需修改
+
+# 支付宝沙箱配置
+alipay:
+  app-id: ${ALIPAY_APP_ID:your_sandbox_app_id}
+  private-key: ${ALIPAY_PRIVATE_KEY:your_app_private_key}
+  public-key: ${ALIPAY_PUBLIC_KEY:your_alipay_public_key}
+  notify-url: http://localhost:8080/api/alipay/notify
+  return-url: http://localhost:8080/#/order/paySuccess
+  sign-type: RSA2
+
+# AI对话接口
+ai:
+  api-url: https://open.bigmodel.cn/api/paas/v4/chat/completions
+  api-key: ${AI_API_KEY:}
+  model: glm-4-flash
+
+logging:
+  level:
+    com.pet: debug

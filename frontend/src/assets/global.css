@@ -1,0 +1,9 @@
+html, body, #app { height: 100%; }
+body { overflow-x: hidden; }
+.el-popover { border-radius: 14px !important; }
+.el-carousel__indicator .el-carousel__button { border-radius: 99px; }
+.el-table th { background: #faf6ef !important; color: var(--ink-2); font-weight: 600; }
+.el-table td, .el-table th { border-bottom-color: var(--line) !important; }
+.el-table::before { display: none; }
+.el-pagination button:disabled { background: transparent; }
+.el-image-viewer__wrapper { z-index: 9999 !important; }

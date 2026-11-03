@@ -1,0 +1,34 @@
+# Frontend dependencies and generated files
+frontend/node_modules/
+frontend/dist/
+frontend/dist2/
+frontend/.cache/
+frontend-build/
+
+# Backend build output and local configuration
+backend/target/
+backend/target2/
+backend/.mvn/
+backend/logs/
+*.log
+
+# Runtime uploads and local database exports
+upload/
+uploads/
+*.sql.bak
+
+# IDE and operating-system metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Temporary tunnel tools
+cloudflared.exe
