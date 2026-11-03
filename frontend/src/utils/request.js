@@ -4,7 +4,7 @@ import router from '../router'
 
 const request = axios.create({
   baseURL: '/api',
-  timeout: 20000
+  timeout: process.env.VUE_APP_STATIC_DEMO === 'true' ? 2500 : 20000
 })
 
 request.interceptors.request.use(config => {

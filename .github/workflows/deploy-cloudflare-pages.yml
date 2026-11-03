@@ -33,6 +33,8 @@ jobs:
 
       - name: Build frontend
         working-directory: frontend
+        env:
+          VUE_APP_STATIC_DEMO: "true"
         run: npm run build
 
       - name: Deploy to Cloudflare Pages

@@ -89,6 +89,16 @@
 import BrandLogo from '../../components/BrandLogo.vue'
 import request from '../../utils/request'
 
+const staticDemo = process.env.VUE_APP_STATIC_DEMO === 'true'
+const demoAccountRoles = {
+  admin: 2,
+  linxiao: 1,
+  test: 0,
+  summer: 0,
+  zhou: 0,
+  momo: 0
+}
+
 export default {
   name: 'Login',
   components: { BrandLogo },
@@ -121,6 +131,16 @@ export default {
       this.$refs.loginForm.validate(async valid => {
         if (!valid) return
         this.loading = true
+        if (staticDemo) {
+          const role = demoAccountRoles[this.form.username]
+          this.loading = false
+          if (role === undefined || this.form.password !== '123456') {
+            this.$message.warning('静态演示站请使用 admin / 123456 或 test / 123456')
+            return
+          }
+          await this.demoLogin(role)
+          return
+        }
         try {
           await this.$store.dispatch('login', this.form)
           if (this.remember) localStorage.setItem('rememberedUser', this.form.username)

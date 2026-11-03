@@ -1,5 +1,7 @@
 import request from './request'
 
+const staticDemo = process.env.VUE_APP_STATIC_DEMO === 'true'
+
 const demoMode = () => {
   const token = localStorage.getItem('token') || ''
   return token.indexOf('demo-') === 0
@@ -7,7 +9,7 @@ const demoMode = () => {
 
 /** 静默 GET：优先取后端数据，失败时回退演示数据 */
 export async function getData(url, params, fallback) {
-  if (demoMode()) return fallback
+  if (staticDemo || demoMode()) return fallback
   try {
     const res = await request.get(url, { params, silent: true })
     return res.data
@@ -18,7 +20,7 @@ export async function getData(url, params, fallback) {
 
 /** 静默 POST：演示模式下直接返回 fallback，不影响页面演示 */
 export async function postData(url, data, fallback) {
-  if (demoMode()) return fallback
+  if (staticDemo || demoMode()) return fallback
   try {
     const res = await request.post(url, data, { silent: true })
     return res.data
@@ -28,7 +30,7 @@ export async function postData(url, data, fallback) {
 }
 
 export async function putData(url, data, fallback) {
-  if (demoMode()) return fallback
+  if (staticDemo || demoMode()) return fallback
   try {
     const res = await request.put(url, data, { silent: true })
     return res.data
@@ -38,7 +40,7 @@ export async function putData(url, data, fallback) {
 }
 
 export async function deleteData(url, fallback) {
-  if (demoMode()) return fallback
+  if (staticDemo || demoMode()) return fallback
   try {
     const res = await request.delete(url, { silent: true })
     return res.data
